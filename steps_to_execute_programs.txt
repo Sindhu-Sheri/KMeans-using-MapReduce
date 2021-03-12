@@ -1,0 +1,31 @@
+"CC ASSIGNMENT II Readme file -- Sindhu Sheri"
+1) Executing model.sh:
+bash -x model.sh
+
+2) Executing mapper.py & u_reducer.py:
+-Running the mapper.py & u_reducer.py
+hadoop jar /usr/local/hadoop-3.3.0/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar -mapper "python3 /home/sisheri/sampleAssign/mapper.py" -reducer "python3 /home/sisheri/sampleAssign/u_reducer.py" -input /user/sisheri/Assign2Input/Train_40/Train/ -output /user/sisheri/sampleOutput_u -file /home/sisheri/sampleAssign/centroids.txt
+-Remove existing centroids.txt file
+rm /home/sisheri/sampleAssign/centroids.txt
+copy updated centroids.txt file from hdfs 
+hadoop fs -copyToLocal /user/sisheri/sampleOutput_u/part-00000 /home/sisheri/sampleAssign/centroids.txt
+remove files from hdfs 
+hdfs dfs -rm /user/sisheri/sampleOutput_u/_SUCCESS
+hdfs dfs -rm /user/sisheri/sampleOutput_u/part-00000
+hdfs dfs -rmdir /user/sisheri/sampleOutput_u/
+
+3) Executing c_mapper.py & c_reducer.py:
+-Running the mapper.py & u_reducer.py
+hadoop jar /usr/local/hadoop-3.3.0/share/hadoop/tools/lib/hadoop-streaming-3.3.0.jar -mapper "python3 /home/sisheri/sampleAssign/c_mapper.py" -reducer "python3 /home/sisheri/sampleAssign/c_reducer.py" -input /user/sisheri/Assign2Input/Train_40/Test/ -output /user/sisheri/sampleOutput_c -file /home/sisheri/sampleAssign/centroids.txt
+-get orig_pred_labels.txt from hdfs
+hadoop fs -copyToLocal /user/sisheri/sampleOutput_c/part-00000 /home/sisheri/sampleAssign/orig_pred_labels.txt
+remove files from hdfs 
+hdfs dfs -rm /user/sisheri/sampleOutput_c/_SUCCESS
+hdfs dfs -rm /user/sisheri/sampleOutput_c/part-00000
+hdfs dfs -rmdir /user/sisheri/sampleOutput_c/
+
+4) Executing evaluation.py:
+NOTE: I have edited two lines in evaluation.py(So, I'm attaching evaluation.py for your reference)
+NOTE: line_split = line.strip().split('\n')[0].split(',')
+NOTE: actual = line_split[0].strip()
+python3 /home/sisheri/sampleAssign/evaluation.py --input /home/sisheri/sampleAssign/orig_pred_labels.txt --output /home/sisheri/sampleAssign/performance
