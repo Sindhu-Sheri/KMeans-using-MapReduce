@@ -16,6 +16,7 @@ Languages used: Python, Shell script
 
 **Workflow of this algorithm:**
 
+![Image](https://github.com/sindhusheri97/KMeans_Map_Reduce/blob/main/workflow.png)
 
 **File Description:**
 
