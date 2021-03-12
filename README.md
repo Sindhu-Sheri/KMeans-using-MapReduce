@@ -1,3 +1,5 @@
+#KMeans-using-MapReduce
+
 This project focuses on understanding mapreduce architecture on hadoop cluster(hadoop-3.3.0) using a real-word problem. We are implementing an unsupervized learning algorithm, "k-means algorithm" using MapReduce for a letter recognition task. 
 
 Languages used: Python, Shell script
